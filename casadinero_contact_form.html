@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CasaDinero.org - Formulario de Contacto y Asistencia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        casagreen: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transitions for interactive elements */
+        .input-group {
+            position: relative;
+        }
+        
+        .floating-input:focus ~ .floating-label,
+        .floating-input:not(:placeholder-shown) ~ .floating-label {
+            transform: translateY(-1.3rem) scale(0.85);
+            background-color: white;
+            padding: 0 0.375rem;
+            color: #15803d;
+        }
+
+        .floating-label {
+            position: absolute;
+            left: 1rem;
+            top: 0.875rem;
+            pointer-events: none;
+            transition: all 0.2s ease-out;
+            color: #6b7280;
+        }
+
+        /* Custom scrollbar for modern feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #16a34a;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-casagreen-800 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white text-casagreen-800 p-2 rounded-xl font-black text-xl shadow-inner flex items-center justify-center w-10 h-10">
+                    <i class="fa-solid me-0 fa-house-chimney-crack text-emerald-700"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-xl tracking-tight leading-none">CasaDinero<span class="text-emerald-300">.org</span></h1>
+                    <p class="text-xs text-emerald-100 font-light hidden sm:block">Conectando Inmigrantes con Oportunidades y Recursos</p>
+                </div>
+            </div>
+
+            <!-- Global Language Quick Select Header Toggle -->
+            <div class="flex items-center space-x-1 sm:space-x-2 bg-casagreen-900/60 p-1 rounded-lg border border-casagreen-700">
+                <button onclick="switchLanguage('es')" id="btn-lang-es" class="lang-btn px-2.5 py-1 rounded-md text-xs font-semibold transition-all bg-white text-casagreen-900 shadow">Español</button>
+                <button onclick="switchLanguage('pa')" id="btn-lang-pa" class="lang-btn px-2.5 py-1 rounded-md text-xs font-semibold transition-all text-emerald-100 hover:text-white">ਪੰਜਾਬੀ</button>
+                <button onclick="switchLanguage('en')" id="btn-lang-en" class="lang-btn px-2.5 py-1 rounded-md text-xs font-semibold transition-all text-emerald-100 hover:text-white">English</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 py-8 w-full flex-grow flex items-center justify-center">
+        <div class="bg-white w-full rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+            
+            <!-- Left Info Panel (Dynamic language text) -->
+            <div class="lg:col-span-5 bg-gradient-to-br from-casagreen-900 via-casagreen-800 to-emerald-900 p-8 text-white flex flex-col justify-between">
+                <div>
+                    <span id="badge-text" class="inline-block bg-emerald-700/80 text-emerald-100 text-xs px-3 py-1 rounded-full font-medium mb-4 backdrop-blur-sm border border-emerald-600/50">
+                        🔒 Servicio Confidencial y Gratuito
+                    </span>
+                    <h2 id="hero-title" class="text-2xl sm:text-3xl font-bold mb-4 leading-tight">
+                        ¿Necesitas ayuda con vivienda, préstamos o trámites?
+                    </h2>
+                    <p id="hero-subtitle" class="text-emerald-100 text-sm leading-relaxed mb-6 font-light">
+                        Completa el formulario y te conectaremos directamente con proveedores comunitarios y expertos verificados que hablan tu idioma.
+                    </p>
+
+                    <!-- Core Feature Highlights -->
+                    <div class="space-y-4 my-8">
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-emerald-700/50 p-2 rounded-lg text-emerald-300 mt-0.5">
+                                <i class="fa-solid fa-user-shield text-base"></i>
+                            </div>
+                            <div>
+                                <h4 id="feat-1-title" class="font-semibold text-sm">Privacidad Garantizada</h4>
+                                <p id="feat-1-desc" class="text-xs text-emerald-200">Tus datos nunca son compartidos públicamente. El chat es 1 a 1.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-emerald-700/50 p-2 rounded-lg text-emerald-300 mt-0.5">
+                                <i class="fa-solid fa-language text-base"></i>
+                            </div>
+                            <div>
+                                <h4 id="feat-2-title" class="font-semibold text-sm">Atención Multilingüe</h4>
+                                <p id="feat-2-desc" class="text-xs text-emerald-200">Asistencia especializada en Español, Punjabi e Inglés.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-emerald-700/50 p-2 rounded-lg text-emerald-300 mt-0.5">
+                                <i class="fa-solid fa-handshake-angle text-base"></i>
+                            </div>
+                            <div>
+                                <h4 id="feat-3-title" class="font-semibold text-sm">Sin Requisito de SSN</h4>
+                                <p id="feat-3-desc" class="text-xs text-emerald-200">Aceptamos ITIN y matriculas consulares para diversos trámites.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t border-emerald-700/60 text-xs text-emerald-200 flex items-center justify-between">
+                    <span>CasaDinero Support</span>
+                    <span>fresno / ca / us</span>
+                </div>
+            </div>
+
+            <!-- Right Form Section -->
+            <div class="lg:col-span-7 p-6 sm:p-10 relative bg-white">
+                
+                <!-- Success Message Overlay Container (Hidden by default) -->
+                <div id="success-state" class="hidden absolute inset-0 bg-white z-20 p-8 flex flex-col items-center justify-center text-center animate-fade-in">
+                    <div class="w-16 h-16 bg-emerald-100 text-casagreen-700 rounded-full flex items-center justify-center text-3xl mb-4 shadow-sm">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h3 id="success-title" class="text-2xl font-bold text-slate-900 mb-2">¡Solicitud Enviada con Éxito!</h3>
+                    <p id="success-body" class="text-slate-600 text-sm max-w-md mb-6 leading-relaxed">
+                        Hemos recibido tu consulta. Un especialista verificado de CasaDinero en tu idioma se pondrá en contacto contigo en breve a través de nuestro canal de chat privado.
+                    </p>
+                    <button onclick="resetForm()" id="btn-reset" class="bg-casagreen-700 hover:bg-casagreen-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all text-sm">
+                        Enviar otra consulta
+                    </button>
+                </div>
+
+                <form id="contactForm" novalidate onsubmit="handleFormSubmit(event)" class="space-y-5">
+                    <div>
+                        <h3 id="form-heading" class="text-xl font-bold text-slate-900">Formulario de Asistencia</h3>
+                        <p id="form-subheading" class="text-xs text-slate-500 mt-1">Por favor, completa los campos requeridos para canalizar tu solicitud.</p>
+                    </div>
+
+                    <!-- Full Name -->
+                    <div class="input-group">
+                        <input type="text" id="fullName" placeholder=" " required
+                            class="floating-input w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:border-casagreen-700 focus:ring-1 focus:ring-casagreen-700 text-sm transition-all"
+                            oninput="validateField(this)">
+                        <label for="fullName" id="lbl-fullname" class="floating-label text-sm">Nombre Completo *</label>
+                        <p id="err-fullName" class="text-red-500 text-xs mt-1 hidden flex items-center gap-1">
+                            <i class="fa-solid fa-circle-exclamation"></i> <span>Por favor ingresa tu nombre completo.</span>
+                        </p>
+                    </div>
+
+                    <!-- Grid: Email & Phone -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Email -->
+                        <div class="input-group">
+                            <input type="email" id="email" placeholder=" " required
+                                class="floating-input w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:border-casagreen-700 focus:ring-1 focus:ring-casagreen-700 text-sm transition-all"
+                                oninput="validateField(this)">
+                            <label for="email" id="lbl-email" class="floating-label text-sm">Correo Electrónico *</label>
+                            <p id="err-email" class="text-red-500 text-xs mt-1 hidden flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation"></i> <span>Ingresa un correo válido.</span>
+                            </p>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="input-group">
+                            <input type="tel" id="phone" placeholder=" " required
+                                class="floating-input w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:border-casagreen-700 focus:ring-1 focus:ring-casagreen-700 text-sm transition-all"
+                                oninput="validateField(this)">
+                            <label for="phone" id="lbl-phone" class="floating-label text-sm">Teléfono / WhatsApp *</label>
+                            <p id="err-phone" class="text-red-500 text-xs mt-1 hidden flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation"></i> <span>Ingresa al menos 10 dígitos.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Grid: Subject Category & Language Preference -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Inquiry Subject Category -->
+                        <div>
+                            <label id="lbl-category" for="category" class="block text-xs font-semibold text-slate-700 mb-1.5">Categoría de Asistencia *</label>
+                            <div class="relative">
+                                <select id="category" required onchange="validateField(this)"
+                                    class="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:border-casagreen-700 focus:ring-1 focus:ring-casagreen-700 text-sm bg-white appearance-none cursor-pointer text-slate-800 transition-all">
+                                    <option value="" disabled selected id="opt-select">Selecciona una categoría</option>
+                                    <option value="Housing" id="opt-housing">Vivienda (Alquiler / ITIN Mortgage)</option>
+                                    <option value="Loans" id="opt-loans">Préstamos y Crédito</option>
+                                    <option value="Immigration" id="opt-immigration">Asistencia de Inmigración</option>
+                                    <option value="DMV" id="opt-dmv">Trámites DMV / Licencia AB 60</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500">
+                                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                            <p id="err-category" class="text-red-500 text-xs mt-1 hidden flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation"></i> <span>Selecciona una categoría.</span>
+                            </p>
+                        </div>
+
+                        <!-- Preferred Language -->
+                        <div>
+                            <label id="lbl-pref-lang" for="prefLang" class="block text-xs font-semibold text-slate-700 mb-1.5">Idioma Preferido de Respuesta *</label>
+                            <div class="relative">
+                                <select id="prefLang" required onchange="validateField(this)"
+                                    class="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:border-casagreen-700 focus:ring-1 focus:ring-casagreen-700 text-sm bg-white appearance-none cursor-pointer text-slate-800 transition-all">
+                                    <option value="Spanish">Español</option>
+                                    <option value="Punjabi">ਪੰਜਾਬੀ (Punjabi)</option>
+                                    <option value="English">English</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500">
+                                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Message Details -->
+                    <div>
+                        <label id="lbl-message" for="message" class="block text-xs font-semibold text-slate-700 mb-1.5">Detalles de la Consulta *</label>
+                        <textarea id="message" rows="4" placeholder="Describe brevemente lo que necesitas..." required
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:border-casagreen-700 focus:ring-1 focus:ring-casagreen-700 text-sm text-slate-800 transition-all resize-none"
+                            oninput="validateField(this)"></textarea>
+                        <p id="err-message" class="text-red-500 text-xs mt-1 hidden flex items-center gap-1">
+                            <i class="fa-solid fa-circle-exclamation"></i> <span>Por favor escribe los detalles de tu consulta.</span>
+                        </p>
+                    </div>
+
+                    <!-- Terms Checkbox -->
+                    <div class="flex items-start space-x-2 pt-1">
+                        <input type="checkbox" id="terms" required onchange="validateField(this)"
+                            class="mt-1 h-4 w-4 rounded border-slate-300 text-casagreen-700 focus:ring-casagreen-700 cursor-pointer">
+                        <label for="terms" id="lbl-terms" class="text-xs text-slate-600 leading-normal cursor-pointer">
+                            Acepto ser contactado por fuentes verificadas de CasaDinero respetando la política de privacidad.
+                        </label>
+                    </div>
+                    <p id="err-terms" class="text-red-500 text-xs hidden flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation"></i> <span>Debes aceptar los términos para continuar.</span>
+                    </p>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="btn-submit"
+                        class="w-full bg-casagreen-700 hover:bg-casagreen-800 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2 text-sm">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span id="btn-submit-text">Enviar Consulta Privada</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-6 text-xs text-center border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p>© 2026 CasaDinero.org — Plataforma Comunitaria de Asistencia.</p>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-emerald-400 transition">Privacidad</a>
+                <a href="#" class="hover:text-emerald-400 transition">Términos</a>
+                <a href="#" class="hover:text-emerald-400 transition">Entidades Verificadas</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Translations & Form Logic JavaScript -->
+    <script>
+        // Language Dictionaries
+        const i18n = {
+            es: {
+                badge: "🔒 Servicio Confidencial y Gratuito",
+                heroTitle: "¿Necesitas ayuda con vivienda, préstamos o trámites?",
+                heroSubtitle: "Completa el formulario y te conectaremos directamente con proveedores comunitarios y expertos verificados que hablan tu idioma.",
+                feat1Title: "Privacidad Garantizada",
+                feat1Desc: "Tus datos nunca son compartidos públicamente. El chat es 1 a 1.",
+                feat2Title: "Atención Multilingüe",
+                feat2Desc: "Asistencia especializada en Español, Punjabi e Inglés.",
+                feat3Title: "Sin Requisito de SSN",
+                feat3Desc: "Aceptamos ITIN y matrículas consulares para diversos trámites.",
+                formHeading: "Formulario de Asistencia",
+                formSubheading: "Por favor, completa los campos requeridos para canalizar tu solicitud.",
+                lblFullName: "Nombre Completo *",
+                lblEmail: "Correo Electrónico *",
+                lblPhone: "Teléfono / WhatsApp *",
+                lblCategory: "Categoría de Asistencia *",
+                lblPrefLang: "Idioma Preferido de Respuesta *",
+                lblMessage: "Detalles de la Consulta *",
+                lblTerms: "Acepto ser contactado por fuentes verificadas de CasaDinero respetando la política de privacidad.",
+                optSelect: "Selecciona una categoría",
+                optHousing: "Vivienda (Alquiler / ITIN Mortgage)",
+                optLoans: "Préstamos y Crédito",
+                optImmigration: "Asistencia de Inmigración",
+                optDmv: "Trámites DMV / Licencia AB 60",
+                btnSubmitText: "Enviar Consulta Privada",
+                successTitle: "¡Solicitud Enviada con Éxito!",
+                successBody: "Hemos recibido tu consulta. Un especialista verificado de CasaDinero en tu idioma se pondrá en contacto contigo en breve a través de nuestro canal de chat privado.",
+                btnReset: "Enviar otra consulta",
+                errFullName: "Por favor ingresa tu nombre completo.",
+                errEmail: "Ingresa un correo electrónico válido.",
+                errPhone: "Ingresa al menos 10 dígitos telefónicos.",
+                errCategory: "Selecciona una categoría de asistencia.",
+                errMessage: "Por favor escribe los detalles de tu consulta.",
+                errTerms: "Debes aceptar los términos para continuar."
+            },
+            pa: {
+                badge: "🔒 ਸੁਰੱਖਿਅਤ ਅਤੇ ਮੁਫ਼ਤ ਸੇਵਾ",
+                heroTitle: "ਕੀ ਤੁਹਾਨੂੰ ਰਿਹਾਇਸ਼, ਕਰਜ਼ੇ ਜਾਂ DMV ਵਿੱਚ ਮਦਦ ਚਾਹੀਦੀ ਹੈ?",
+                heroSubtitle: "ਫਾਰਮ ਭਰੋ ਅਤੇ ਅਸੀਂ ਤੁਹਾਨੂੰ ਸਿੱਧੇ ਤੌਰ 'ਤੇ ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਬੋਲਣ ਵਾਲੇ ਪ੍ਰਮਾਣਿਤ ਮਾਹਰਾਂ ਨਾਲ ਜੋੜਾਂਗੇ।",
+                feat1Title: "ਗੁਪਤਤਾ ਦੀ ਗਾਰੰਟੀ",
+                feat1Desc: "ਤੁਹਾਡਾ ਡਾਟਾ ਕਦੇ ਵੀ ਜਨਤਕ ਤੌਰ 'ਤੇ ਸਾਂਝਾ ਨਹੀਂ ਕੀਤਾ ਜਾਂਦਾ।",
+                feat2Title: "ਬਹੁ-ਭਾਸ਼ਾਈ ਸਹਾਇਤਾ",
+                feat2Desc: "ਸਪੈਨਿਸ਼, ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਵਿਸ਼ੇਸ਼ ਸਹਾਇਤਾ।",
+                feat3Title: "SSN ਦੀ ਲੋੜ ਨਹੀਂ",
+                feat3Desc: "ਅਸੀਂ ITIN ਅਤੇ ਹੋਰ ਦਸਤਾਵੇਜ਼ਾਂ ਨੂੰ ਪ੍ਰਵਾਨ ਕਰਦੇ ਹਾਂ।",
+                formHeading: "ਸਹਾਇਤਾ ਫਾਰਮ",
+                formSubheading: "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਬੇਨਤੀ ਭੇਜਣ ਲਈ ਲੋੜੀਂਦੇ ਖੇਤਰਾਂ ਨੂੰ ਭਰੋ।",
+                lblFullName: "ਪੂਰਾ ਨਾਮ *",
+                lblEmail: "ਈਮੇਲ ਪਤਾ *",
+                lblPhone: "ਫ਼ੋਨ ਨੰਬਰ / ਵਟਸਐਪ *",
+                lblCategory: "ਸਹਾਇਤਾ ਦੀ ਸ਼੍ਰੇਣੀ *",
+                lblPrefLang: "ਜਵਾਬ ਲਈ ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ *",
+                lblMessage: "ਪੁੱਛਗਿੱਛ ਦਾ ਵੇਰਵਾ *",
+                lblTerms: "ਮੈਂ ਪ੍ਰਾਈਵੇਸੀ ਨੀਤੀ ਦੇ ਅਧੀਨ CasaDinero ਦੇ ਭਰੋਸੇਯੋਗ ਸਰੋਤਾਂ ਦੁਆਰਾ ਸੰਪਰਕ ਕੀਤੇ ਜਾਣ ਦੀ ਸਹਿਮਤੀ ਦਿੰਦਾ ਹਾਂ।",
+                optSelect: "ਇੱਕ ਸ਼੍ਰੇਣੀ ਚੁਣੋ",
+                optHousing: "ਰਿਹਾਇਸ਼ (ਕਿਰਾਇਆ / ITIN ਮੋਰਗੇਜ)",
+                optLoans: "ਕਰਜ਼ੇ ਅਤੇ ਕ੍ਰੈਡਿਟ",
+                optImmigration: "ਇਮੀਗ੍ਰੇਸ਼ਨ ਸਹਾਇਤਾ",
+                optDmv: "DMV ਸਹਾਇਤਾ / ਡਰਾਈਵਿੰਗ ਲਾਇਸੈਂਸ",
+                btnSubmitText: "ਗੁਪਤ ਸੁਨੇਹਾ ਭੇਜੋ",
+                successTitle: "ਬੇਨਤੀ ਸਫਲਤਾਪੂਰਵਕ ਭੇਜੀ ਗਈ!",
+                successBody: "ਸਾਨੂੰ ਤੁਹਾਡੀ ਬੇਨਤੀ ਮਿਲ ਗਈ ਹੈ। CasaDinero ਦਾ ਇੱਕ ਪ੍ਰਮਾਣਿਤ ਮਾਹਰ ਜਲਦੀ ਹੀ ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਵਿੱਚ ਨਿੱਜੀ ਚੈਟ ਰਾਹੀਂ ਸੰਪਰਕ ਕਰੇਗਾ।",
+                btnReset: "ਹੋਰ ਬੇਨਤੀ ਭੇਜੋ",
+                errFullName: "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਪੂਰਾ ਨਾਮ ਦਰਜ ਕਰੋ।",
+                errEmail: "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਵੈਧ ਈਮੇਲ ਦਰਜ ਕਰੋ।",
+                errPhone: "ਕਿਰਪਾ ਕਰਕੇ ਘੱਟੋ-ਘੱਟ 10 ਅੰਕਾਂ ਦਾ ਫ਼ੋਨ ਨੰਬਰ ਦਰਜ ਕਰੋ।",
+                errCategory: "ਕਿਰਪਾ ਕਰਕੇ ਸਹਾਇਤਾ ਦੀ ਸ਼੍ਰੇਣੀ ਚੁਣੋ।",
+                errMessage: "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਪੁੱਛਗਿੱਛ ਦਾ ਵੇਰਵਾ ਲਿਖੋ।",
+                errTerms: "ਜਾਰੀ ਰੱਖਣ ਲਈ ਤੁਹਾਨੂੰ ਸ਼ਰਤਾਂ ਨੂੰ ਸਵੀਕਾਰ ਕਰਨਾ ਪਵੇਗਾ।"
+            },
+            en: {
+                badge: "🔒 Confidential & Free Service",
+                heroTitle: "Need assistance with housing, loans, or DMV legal support?",
+                heroSubtitle: "Fill out the form and we will connect you directly with verified community providers who speak your language.",
+                feat1Title: "Guaranteed Privacy",
+                feat1Desc: "Your details are never shared publicly. Chats are strictly 1-on-1.",
+                feat2Title: "Multilingual Support",
+                feat2Desc: "Specialized assistance in Spanish, Punjabi, and English.",
+                feat3Title: "No SSN Required",
+                feat3Desc: "ITIN and consular IDs accepted across multiple service channels.",
+                formHeading: "Assistance Request Form",
+                formSubheading: "Please complete the required fields to route your inquiry.",
+                lblFullName: "Full Name *",
+                lblEmail: "Email Address *",
+                lblPhone: "Phone / WhatsApp *",
+                lblCategory: "Inquiry Category *",
+                lblPrefLang: "Preferred Language *",
+                lblMessage: "Inquiry Details *",
+                lblTerms: "I agree to be contacted by verified CasaDinero sources respecting privacy policy.",
+                optSelect: "Select a category",
+                optHousing: "Housing (Rentals / ITIN Mortgage)",
+                optLoans: "Loans & Credit Building",
+                optImmigration: "Immigration Legal Aid",
+                optDmv: "DMV Assistance / AB 60 License",
+                btnSubmitText: "Send Private Inquiry",
+                successTitle: "Request Submitted Successfully!",
+                successBody: "We have received your inquiry. A verified CasaDinero specialist fluent in your preferred language will contact you shortly via private chat.",
+                btnReset: "Submit another inquiry",
+                errFullName: "Please enter your full name.",
+                errEmail: "Please enter a valid email address.",
+                errPhone: "Please enter at least 10 phone digits.",
+                errCategory: "Please select an inquiry category.",
+                errMessage: "Please describe your inquiry details.",
+                errTerms: "You must accept the terms to proceed."
+            }
+        };
+
+        let currentLang = 'es';
+
+        // Language Switcher Function
+        function switchLanguage(lang) {
+            currentLang = lang;
+            const dict = i18n[lang];
+
+            // Update Header Toggle Styling
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.className = "lang-btn px-2.5 py-1 rounded-md text-xs font-semibold transition-all text-emerald-100 hover:text-white";
+            });
+            const activeBtn = document.getElementById(`btn-lang-${lang}`);
+            if (activeBtn) {
+                activeBtn.className = "lang-btn px-2.5 py-1 rounded-md text-xs font-semibold transition-all bg-white text-casagreen-900 shadow";
+            }
+
+            // Sync Language Dropdown selection inside form
+            const langSelect = document.getElementById('prefLang');
+            if (lang === 'es') langSelect.value = 'Spanish';
+            if (lang === 'pa') langSelect.value = 'Punjabi';
+            if (lang === 'en') langSelect.value = 'English';
+
+            // Text Content Updates
+            document.getElementById('badge-text').innerText = dict.badge;
+            document.getElementById('hero-title').innerText = dict.heroTitle;
+            document.getElementById('hero-subtitle').innerText = dict.heroSubtitle;
+            document.getElementById('feat-1-title').innerText = dict.feat1Title;
+            document.getElementById('feat-1-desc').innerText = dict.feat1Desc;
+            document.getElementById('feat-2-title').innerText = dict.feat2Title;
+            document.getElementById('feat-2-desc').innerText = dict.feat2Desc;
+            document.getElementById('feat-3-title').innerText = dict.feat3Title;
+            document.getElementById('feat-3-desc').innerText = dict.feat3Desc;
+
+            document.getElementById('form-heading').innerText = dict.formHeading;
+            document.getElementById('form-subheading').innerText = dict.formSubheading;
+            document.getElementById('lbl-fullname').innerText = dict.lblFullName;
+            document.getElementById('lbl-email').innerText = dict.lblEmail;
+            document.getElementById('lbl-phone').innerText = dict.lblPhone;
+            document.getElementById('lbl-category').innerText = dict.lblCategory;
+            document.getElementById('lbl-pref-lang').innerText = dict.lblPrefLang;
+            document.getElementById('lbl-message').innerText = dict.lblMessage;
+            document.getElementById('lbl-terms').innerText = dict.lblTerms;
+
+            document.getElementById('opt-select').innerText = dict.optSelect;
+            document.getElementById('opt-housing').innerText = dict.optHousing;
+            document.getElementById('opt-loans').innerText = dict.optLoans;
+            document.getElementById('opt-immigration').innerText = dict.optImmigration;
+            document.getElementById('opt-dmv').innerText = dict.optDmv;
+
+            document.getElementById('btn-submit-text').innerText = dict.btnSubmitText;
+            document.getElementById('success-title').innerText = dict.successTitle;
+            document.getElementById('success-body').innerText = dict.successBody;
+            document.getElementById('btn-reset').innerText = dict.btnReset;
+
+            // Update active error messages if displayed
+            document.querySelector('#err-fullName span').innerText = dict.errFullName;
+            document.querySelector('#err-email span').innerText = dict.errEmail;
+            document.querySelector('#err-phone span').innerText = dict.errPhone;
+            document.querySelector('#err-category span').innerText = dict.errCategory;
+            document.querySelector('#err-message span').innerText = dict.errMessage;
+            document.querySelector('#err-terms span').innerText = dict.errTerms;
+        }
+
+        // Realtime Input Validation Engine
+        function validateField(element) {
+            const id = element.id;
+            const errEl = document.getElementById(`err-${id}`);
+            let isValid = true;
+
+            if (id === 'fullName') {
+                isValid = element.value.trim().length >= 3;
+            } else if (id === 'email') {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                isValid = emailRegex.test(element.value.trim());
+            } else if (id === 'phone') {
+                const phoneDigits = element.value.replace(/\D/g, '');
+                isValid = phoneDigits.length >= 10;
+            } else if (id === 'category') {
+                isValid = element.value !== "";
+            } else if (id === 'message') {
+                isValid = element.value.trim().length >= 10;
+            } else if (id === 'terms') {
+                isValid = element.checked;
+            }
+
+            if (!isValid) {
+                if (errEl) errEl.classList.remove('hidden');
+                if (element.classList) {
+                    element.classList.add('border-red-500');
+                    element.classList.remove('border-slate-300', 'focus:border-casagreen-700');
+                }
+            } else {
+                if (errEl) errEl.classList.add('hidden');
+                if (element.classList) {
+                    element.classList.remove('border-red-500');
+                    element.classList.add('border-slate-300', 'focus:border-casagreen-700');
+                }
+            }
+
+            return isValid;
+        }
+
+        // Form Submission Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const fields = ['fullName', 'email', 'phone', 'category', 'message', 'terms'];
+            let allValid = true;
+
+            fields.forEach(fieldId => {
+                const el = document.getElementById(fieldId);
+                const valid = validateField(el);
+                if (!valid) allValid = false;
+            });
+
+            if (allValid) {
+                const submitBtn = document.getElementById('btn-submit');
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-75');
+                document.getElementById('btn-submit-text').innerText = '...';
+
+                // Simulate API post delay
+                setTimeout(() => {
+                    document.getElementById('success-state').classList.remove('hidden');
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-75');
+                    switchLanguage(currentLang); // Refresh button text state
+                }, 800);
+            }
+        }
+
+        // Reset Form
+        function resetForm() {
+            document.getElementById('contactForm').reset();
+            document.getElementById('success-state').classList.add('hidden');
+            
+            // Clear all error states
+            ['fullName', 'email', 'phone', 'category', 'message', 'terms'].forEach(id => {
+                const errEl = document.getElementById(`err-${id}`);
+                const inputEl = document.getElementById(id);
+                if (errEl) errEl.classList.add('hidden');
+                if (inputEl && inputEl.classList) {
+                    inputEl.classList.remove('border-red-500');
+                    inputEl.classList.add('border-slate-300');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
